@@ -9,14 +9,14 @@
   </parent>
   
   <groupId>com.inflection.point</groupId>
-  <artifactId>accounts-service</artifactId>
+  <artifactId>registration-service</artifactId>
   <version>0.0.1-SNAPSHOT</version>
-  <name>accounts-service</name>
+  <name>registration-service</name>
   <url>http://maven.apache.org</url>
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <!-- Stand-alone RESTFul application for testing only -->
-	<start-class>com.inflection.point.accounts.AccountsServer</start-class>
+	<start-class>com.inflection.point.services.registration.RegistrationServer</start-class>
   </properties>
 
 </project>
