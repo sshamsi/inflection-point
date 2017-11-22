@@ -4,12 +4,12 @@ package com.inflection.point.services.web;
 import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * Client controller, fetches Account info from the microservice via
@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * 
  * @author Shazeb Shamsi
  */
-@Controller
+@RestController
 public class WebAccountsController {
 
 	@Autowired
@@ -41,15 +41,14 @@ public class WebAccountsController {
 	}
 
 	@RequestMapping("/accounts/{accountNumber}")
-	public String byNumber(Model model,
+	public Account byNumber(Model model,
 			@PathVariable("accountNumber") String accountNumber) {
 
 		logger.info("web-service byNumber() invoked: " + accountNumber);
 
 		Account account = accountsService.findByNumber(accountNumber);
 		logger.info("web-service byNumber() found: " + account);
-		model.addAttribute("account", account);
-		return "account";
+		return account;
 	}
 
 
