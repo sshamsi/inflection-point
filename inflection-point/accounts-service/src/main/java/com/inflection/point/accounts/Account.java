@@ -3,27 +3,41 @@ package com.inflection.point.accounts;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.Transient;
+
 /**
- * Persistent account entity with JPA markup. Accounts are stored in an H2
+ * Persistent account entity with JPA markup. Accounts are stored in MySQL
  * relational database.
  * 
- * @author Paul Chapman
+ * @author Shazeb Shamsi
  */
+@Entity
+@Table(name = "ip_accounts")
 public class Account implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	public static Long nextId = 0L;
+	@Id
+    @GeneratedValue(strategy=GenerationType.AUTO)
+	@Column(name="account_id")
+	private Long id;
+    
+	@Column(name="account_name")
+	private String name;
+	
+	@Column(name="account_number")
+	private String number;
 
-	protected Long id;
-
-	protected String number;
-
+	@Transient
 	protected String owner;
 
-	protected BigDecimal balance;
-
-	
+	private BigDecimal balance;
 
 	/**
 	 * Default constructor for JPA only.
@@ -71,6 +85,10 @@ public class Account implements Serializable {
 	public BigDecimal getBalance() {
 		return balance.setScale(2, BigDecimal.ROUND_HALF_EVEN);
 	}
+	
+	public void setBalance(BigDecimal balance) {
+		this.balance = balance;
+	}
 
 	public void withdraw(BigDecimal amount) {
 		balance.subtract(amount);
@@ -78,6 +96,14 @@ public class Account implements Serializable {
 
 	public void deposit(BigDecimal amount) {
 		balance.add(amount);
+	}
+	
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	@Override

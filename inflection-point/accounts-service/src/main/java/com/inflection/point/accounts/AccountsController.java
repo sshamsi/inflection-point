@@ -4,6 +4,7 @@ import java.util.logging.Logger;
 
 import javax.security.auth.login.AccountNotFoundException;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -11,12 +12,28 @@ import org.springframework.web.bind.annotation.RestController;
 /**
  * A RESTFul controller for accessing account information.
  * 
- * @author Paul Chapman
+ * @author Shazeb Shamsi
  */
 @RestController
 public class AccountsController {
 
-	protected Logger logger = Logger.getLogger(AccountsController.class.getName());
+	protected Logger logger = Logger.getLogger(AccountsController.class
+			.getName());
+	protected AccountRepository accountRepository;
+	
+	/**
+	 * Create an instance plugging in the respository of Accounts.
+	 * 
+	 * @param accountRepository
+	 *            An account repository implementation.
+	 */
+	@Autowired
+	public AccountsController(AccountRepository accountRepository) {
+		this.accountRepository = accountRepository;
+
+		logger.info("AccountRepository says system has "
+				+ accountRepository.countAccounts() + " accounts");
+	}
 
 
 	/**
