@@ -4,6 +4,7 @@ import java.util.logging.Logger;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.context.annotation.Import;
 
@@ -13,11 +14,12 @@ import org.springframework.context.annotation.Import;
  * Note that the configuration for this application is imported from
  * {@link AccountsConfiguration}. This is a deliberate separation of concerns.
  * 
- * @author Paul Chapman
+ * @author Shazeb Shamsi
  */
 @EnableAutoConfiguration
 @EnableDiscoveryClient
 @Import(AccountsConfiguration.class)
+//@SpringBootApplication
 public class AccountsServer {
 
 	protected Logger logger = Logger.getLogger(AccountsServer.class.getName());

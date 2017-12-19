@@ -6,7 +6,9 @@ import javax.security.auth.login.AccountNotFoundException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -19,10 +21,11 @@ public class AccountsController {
 
 	protected Logger logger = Logger.getLogger(AccountsController.class
 			.getName());
+	
 	protected AccountRepository accountRepository;
 	
 	/**
-	 * Create an instance plugging in the respository of Accounts.
+	 * Create an instance plugging in the repository of Accounts.
 	 * 
 	 * @param accountRepository
 	 *            An account repository implementation.
@@ -54,6 +57,15 @@ public class AccountsController {
 		logger.info("accounts-service byNumber() found: " + account);
 		return account;
 	}
+	
+	@RequestMapping(method = RequestMethod.POST, headers="Accept=application/json")
+	public void create(@RequestBody Account account){
+		logger.info("Creating account");
+		accountRepository.save(account);
+		logger.info("Created account");
+	}
+	
+	
 
 
 }

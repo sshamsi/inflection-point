@@ -28,9 +28,6 @@ public class Account implements Serializable {
 	@Column(name="account_id")
 	private Long id;
     
-	@Column(name="account_name")
-	private String name;
-	
 	@Column(name="account_number")
 	private String number;
 
@@ -62,7 +59,7 @@ public class Account implements Serializable {
 	 * @param id
 	 *            The new id.
 	 */
-	protected void setId(long id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 
@@ -98,14 +95,6 @@ public class Account implements Serializable {
 		balance.add(amount);
 	}
 	
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
 	@Override
 	public String toString() {
 		return number + " [" + owner + "]: $" + balance;
