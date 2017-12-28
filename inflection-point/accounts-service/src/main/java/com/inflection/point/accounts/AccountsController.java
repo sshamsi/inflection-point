@@ -48,11 +48,11 @@ public class AccountsController {
 	 * @throws AccountNotFoundException
 	 *             If the number is not recognised.
 	 */
-	@RequestMapping("/accounts/{Id}")
-	public Account byId(@PathVariable("Id") Long accountId) {
+	@RequestMapping("/accounts/{Number}")
+	public Account byNumber(@PathVariable("Number") String accountNumber) {
 
-		logger.info("accounts-service byId() invoked: " + accountId);
-		Account account = accountRepository.findOne(accountId);
+		logger.info("accounts-service byNumber() invoked: " + accountNumber);
+		Account account = accountRepository.findByNumber(accountNumber);
 		logger.info("accounts-service byNumber() found: " + account);
 		return account;
 	}

@@ -1,7 +1,12 @@
 package com.inflection.point.accounts.tests;
 
-import org.junit.After;
+import static org.junit.Assert.assertThat;
+
+import java.math.BigDecimal;
+
+import org.junit.Before;
 import org.junit.Test;
+import static org.hamcrest.CoreMatchers.*;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
@@ -24,18 +29,27 @@ public class AccountRepositoryTest {
 	@Autowired
 	private AccountRepository accountRepository;
 	
-	@After
-	public void tearDown(){
-		accountRepository.deleteAll();
+	@Before
+	public void setUp(){
+		// create account
+		Account account = new Account("101", new BigDecimal(1000));
+		account.setId(1);
+		account = accountRepository.save(account);
 	}
-
+	
 	@Test
-	public void saveAndFetchAccount() {
-		Account account = new Account("101", "Shazeb");
+	public void createAccount() {
+		Account account = new Account("102", new BigDecimal(2000));
 		account.setId(2);
-		accountRepository.save(account);
+		account = accountRepository.save(account);
 		
 		System.out.println(" Number of accounts "+accountRepository.count());
+	}
+	
+	@Test
+	public void fetchAccount(){
+		Account account = accountRepository.findByNumber("101");
+		assertThat(account.getNumber(), is("101"));
 	}
 	
 }

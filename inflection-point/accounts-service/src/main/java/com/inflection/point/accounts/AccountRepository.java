@@ -15,7 +15,7 @@ public interface AccountRepository extends CrudRepository<Account, Long> {
 	 * @param accountNumber
 	 * @return The account if found, null otherwise.
 	 */
-	//public Account findByNumber(String accountNumber);
+	public Account findByNumber(String accountNumber);
 
 	/**
 	 * Fetch the number of accounts known to the system.

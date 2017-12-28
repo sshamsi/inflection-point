@@ -4,6 +4,8 @@ import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 
+import java.math.BigDecimal;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,10 +30,10 @@ public class AccountControllerTest {
 	
 	@Test
 	public void findAccountById() throws Exception{
-		Account account = new Account("100", "Shamsi");
+		Account account = new Account("100", new BigDecimal(1000));
 		account.setId(1);
-		when(accountRepository.findOne(1L)).thenReturn(account);
-		mockMvc.perform(get("/accounts/1")).andDo(print());
+		when(accountRepository.findByNumber("100")).thenReturn(account);
+		mockMvc.perform(get("/accounts/100")).andDo(print());
 	}
 
 

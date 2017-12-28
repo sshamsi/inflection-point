@@ -9,7 +9,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 
 /**
  * Persistent account entity with JPA markup. Accounts are stored in MySQL
@@ -31,8 +30,6 @@ public class Account implements Serializable {
 	@Column(name="account_number")
 	private String number;
 
-	@Transient
-	protected String owner;
 
 	private BigDecimal balance;
 
@@ -43,10 +40,9 @@ public class Account implements Serializable {
 		balance = BigDecimal.ZERO;
 	}
 
-	public Account(String number, String owner) {
+	public Account(String number, BigDecimal balance) {
 		this.number = number;
-		this.owner = owner;
-		balance = BigDecimal.ZERO;
+		this.balance = balance;
 	}
 
 	public long getId() {
@@ -71,14 +67,6 @@ public class Account implements Serializable {
 		this.number = accountNumber;
 	}
 
-	public String getOwner() {
-		return owner;
-	}
-
-	protected void setOwner(String owner) {
-		this.owner = owner;
-	}
-
 	public BigDecimal getBalance() {
 		return balance.setScale(2, BigDecimal.ROUND_HALF_EVEN);
 	}
@@ -97,7 +85,7 @@ public class Account implements Serializable {
 	
 	@Override
 	public String toString() {
-		return number + " [" + owner + "]: $" + balance;
+		return number + " : $" + balance;
 	}
 
 }
